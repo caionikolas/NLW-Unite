@@ -2,18 +2,18 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-  "title": "Novo evento",
+  "title": "Evento de teste",
   "details": null,
-  "maximumAttendees": 1
+  "maximumAttendees": 10
 }
 
 ###
-POST http://localhost:3333/events/b925474b-d03f-4f1e-9b25-eb2580772696/attendees
+POST http://localhost:3333/events/7662d316-b9ca-4464-85fd-d1792d492917/attendees
 Content-Type: application/json
 
 {
-  "name": "Nikolas",
-  "email": "nikolas2@rocketseat.com"
+  "name": "Laura",
+  "email": "laura@rocketseat.com"
 }
 
 ###
@@ -21,4 +21,10 @@ GET http://localhost:3333/events/b925474b-d03f-4f1e-9b25-eb2580772696
 
 ###
 GET http://localhost:3333/attendees/2/badge
+
+###
+GET http://localhost:3333/attendees/8/check-in
+
+###
+GET http://localhost:3333/events/7662d316-b9ca-4464-85fd-d1792d492917/attendees?query=laura
 

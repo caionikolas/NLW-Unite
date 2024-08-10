@@ -2,29 +2,29 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-  "title": 123,
-  "details": null,
+  "title": "Evento de Inverno",
+  "details": "Evento de teste",
   "maximumAttendees": 10
 }
 
 ###
-POST http://localhost:3333/events/7662d316-b9ca-4464-85fd-d1792d492917/attendees
+POST http://localhost:3333/events/48540bfe-3a3f-4eb0-8f23-9f0361a323db/attendees
 Content-Type: application/json
 
 {
-  "name": "Laura",
-  "email": "laura@rocketseat.com"
+  "name": "Nikolas",
+  "email": "Nikolas@rocketseat.com"
 }
 
 ###
-GET http://localhost:3333/events/b925474b-d03f-4f1e-9b25-eb2580772696
+GET http://localhost:3333/events/48540bfe-3a3f-4eb0-8f23-9f0361a323db
 
 ###
-GET http://localhost:3333/attendees/2/badge
+GET http://localhost:3333/attendees/10/badge
 
 ###
 GET http://localhost:3333/attendees/8/check-in
 
 ###
-GET http://localhost:3333/events/7662d316-b9ca-4464-85fd-d1792d492917/attendees?query=laura
+GET http://localhost:3333/events/48540bfe-3a3f-4eb0-8f23-9f0361a323db/attendees
 

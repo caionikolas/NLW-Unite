@@ -7,8 +7,7 @@ import { Table } from './table/table'
 import { TableHeader } from './table/table-header'
 import { TableCell } from './table/table-cell'
 import { TableRow } from './table/table-row'
-import { ChangeEvent, useState } from 'react'
-import { attendees } from '../data/attendees'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 dayjs.extend(relatineTime)
 dayjs.locale('pt-br')
@@ -16,7 +15,13 @@ dayjs.locale('pt-br')
 export function AttendeeList(){
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
+  const [attendees, setAttendees] = usseState([])
+
   const totalPages = Math.ceil(attendees.length/10)
+
+useEffect(() => {
+  fetch('http://localhost:3333/events/56d84e94-954a-4d25-bac8-86bef48ebd72/attendees')
+}, [page])
 
   function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>){
     setSearch(event.target.value)

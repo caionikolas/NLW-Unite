@@ -27,7 +27,7 @@ export async function getEventAttendees(app: FastifyInstance) {
                 createdAt: z.date(),
                 checkedInAt: z.date().nullable(),
               })
-            )
+            ),
           })
         },
       }
@@ -43,7 +43,7 @@ export async function getEventAttendees(app: FastifyInstance) {
           createdAt: true,
           checkIn: {
             select: {
-              createdAt: true,
+              createdAt: true
             }
           }
         },

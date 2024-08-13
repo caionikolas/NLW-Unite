@@ -12,15 +12,30 @@ import { ChangeEvent, useEffect, useState } from 'react'
 dayjs.extend(relatineTime)
 dayjs.locale('pt-br')
 
+interface Attendee {
+  id: string
+  name: string
+  email: string
+  createdAt: string
+  checkedInAt: string | null
+}
+
 export function AttendeeList(){
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
-  const [attendees, setAttendees] = usseState([])
+  const [total, setTotal] = useState(0)
+  const [attendees, setAttendees] = useState<Attendee[]>([])
 
-  const totalPages = Math.ceil(attendees.length/10)
+  const totalPages = Math.ceil(total/10)
 
 useEffect(() => {
-  fetch('http://localhost:3333/events/56d84e94-954a-4d25-bac8-86bef48ebd72/attendees')
+  fetch(`http://localhost:3333/events/9e9bd979-9d10-4915-b339-3786b1634f33/attendees?pageIndex=${page - 1}`)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data)
+    setAttendees(data.attendees)
+    setTotal(data.total)
+  })
 }, [page])
 
   function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>){
@@ -69,7 +84,7 @@ useEffect(() => {
           </tr>
         </thead>
         <tbody> 
-          {attendees.slice((page - 1)*10, page * 10).map((attendee) => {
+          {attendees.map((attendee) => {
             return (
               <TableRow key={attendee.id}>
                 <TableCell>
@@ -83,7 +98,10 @@ useEffect(() => {
                   </div>
                 </TableCell>
                 <TableCell>{dayjs().to(attendee.createdAt)}</TableCell>
-                <TableCell>{dayjs().to(attendee.checkedInAt)}</TableCell>
+                <TableCell>
+                  {attendee.checkedInAt === null 
+                    ? <span className='text-zinc-400'>'Não fez check-in'</span>  
+                    : dayjs().to(attendee.checkedInAt)}</TableCell>
                 <TableCell>
                   <IconButton transparent > 
                     <MoreHorizontal className='size-4'/>
@@ -96,7 +114,7 @@ useEffect(() => {
         <tfoot>
           <tr>
             <TableCell colSpan={3}>
-              Mostrando {page*10} de {attendees.length} items
+              Mostrando {attendees.length} de {total} items
             </TableCell>
             <TableCell className='text-right' colSpan={3}>
               <div className='inline-flex items-center gap-8'>
